@@ -30,10 +30,10 @@ def receptionist():
 
     body = request.get_data(as_text=True)
 
-    app.logger.info("Request body: " + 'こんにちは')
+    app.logger.info("Request body: " + body)
 
     try:
-        handler.handle(body, signature)
+        handler.handle('hello', signature)
     except exceptions.InvalidSignatureError:
         abort(400)
 
