@@ -22,10 +22,8 @@ handler = linebot.WebhookHandler(YOUR_CHANNEL_SECRET)
 
 @app.route('/corona', methods=['POST'])
 def corona():
-    app.logger.info("START")
 
     signature = request.headers['X-Line-Signature']
-    app.logger.info(signature)
 
     body = request.get_data(as_text=True)
 
@@ -39,11 +37,6 @@ def corona():
     return 'OK'
 
 
-@app.route('/', methods=['GET'])
-def hello_world():
-    return '<html>こんにちは</html>'
-
-
 @handler.add(models.MessageEvent, message=models.TextMessage)
 def handle_message(event):
     line_bot_api.reply_message(
@@ -52,5 +45,5 @@ def handle_message(event):
 
 
 if __name__ == '__main__':
-    port = int(os.getenv('POST', 5000))
-    app.run(port=port)
+    port = int(os.getenv('PORT', 5000))
+    app.run(host="0.0.0.0", port=port)
