@@ -33,7 +33,7 @@ def receptionist():
     app.logger.info("Request body: " + body)
 
     try:
-        handler.handle('hello', signature)
+        handler.handle(body, signature)
     except exceptions.InvalidSignatureError:
         abort(400)
 
@@ -44,7 +44,7 @@ def receptionist():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        models.TextSendMessage(text=event.message.text))
+        models.TextSendMessage(text='hello'))
 
 
 if __name__ == '__main__':
