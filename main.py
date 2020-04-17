@@ -24,8 +24,10 @@ handler = linebot.WebhookHandler(YOUR_CHANNEL_SECRET)
 
 @app.route('/corona', methods=['POST'])
 def corona():
+    app.logger.info("START")
 
     signature = request.headers['X-Line-Signature']
+    app.logger.info(signature)
 
     body = request.get_data(as_text=True)
 
