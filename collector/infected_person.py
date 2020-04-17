@@ -27,15 +27,16 @@ class InfectedPerson(object):
         self.before_ipbp_db = None
         self.before_di_db = None
 
-        # 前日感染者数読み込み
-        self.read_today_before()
-
         # 前日感染データファイルパス
         file_dir = os.path.dirname(os.path.abspath(__file__))
-        self.before_ipdb_db_filepath = os.path.join(file_dir,
-                                                    'today_before_ipbp_db.json')
-        self.before_di_db_filepath = os.path.join(file_dir,
-                                                  'today_before_di_db.json')
+        self.before_ipdb_db_filepath = os.path.join(
+            file_dir, 'today_before_ipbp_db.json')
+
+        self.before_di_db_filepath = os.path.join(
+            file_dir, 'today_before_di_db.json')
+
+        # 前日感染者数読み込み
+        self.read_today_before()
 
     def load(self):
         """感染者数確認ホームページ読み込み"""
@@ -150,7 +151,6 @@ class InfectedPerson(object):
             self.di_db.update(db)
 
     def write_today_before(self):
-        # TODO: 毎日0時に更新
         with open(self.before_di_db_filepath, 'w', encoding='utf-8') as js:
             json.dump(self.di_db, js, ensure_ascii=False, indent=4)
 
