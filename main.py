@@ -13,10 +13,8 @@ app = flask.Flask(__name__)
 
 
 # 環境変数取得
-# YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
-# YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
-YOUR_CHANNEL_ACCESS_TOKEN = 'QxMUFN4s4ehpambtVzUaaASi5VeVnxLB6lhO000zNMDxyCJgyUBkiNWuuvg/VRIfZvwimm21lFIoCxkmGHHbEoIrS5+5+Qt00Rt8bXR6rs5dC8uj3CkpFj104F7d25+JlkXFwYyYYp7O4vFPGTxggwdB04t89/1O/w1cDnyilFU='
-YOUR_CHANNEL_SECRET = '99c4503605dc3410107de541a8d7c842'
+YOUR_CHANNEL_ACCESS_TOKEN = os.environ['YOUR_CHANNEL_ACCESS_TOKEN']
+YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
 
 line_bot_api = linebot.LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = linebot.WebhookHandler(YOUR_CHANNEL_SECRET)
@@ -55,4 +53,4 @@ def handle_message(event):
 
 if __name__ == '__main__':
     port = int(os.getenv('POST', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(port=port)
