@@ -1,5 +1,6 @@
 """日本国内の完成者数を取得する"""
 # 組み込みモジュール
+import os
 import re
 
 # サードパーティ
@@ -28,6 +29,13 @@ class InfectedPerson(object):
 
         # 前日感染者数読み込み
         self.read_today_before()
+
+        # 前日感染データファイルパス
+        file_dir = os.path.dirname(os.path.abspath(__file__))
+        self.before_ipdb_db_filepath = os.path.join(file_dir,
+                                                    'today_before_ipbp_db.json')
+        self.before_di_db_filepath = os.path.join(file_dir,
+                                                  'today_before_di_db.json')
 
     def load(self):
         """感染者数確認ホームページ読み込み"""
@@ -143,17 +151,17 @@ class InfectedPerson(object):
 
     def write_today_before(self):
         # TODO: 毎日0時に更新
-        with open('today_before_di_db.json', 'w', encoding='utf-8') as js:
+        with open(self.before_di_db_filepath, 'w', encoding='utf-8') as js:
             json.dump(self.di_db, js, ensure_ascii=False, indent=4)
 
-        with open('today_before_ipbp_db.json', 'w', encoding='utf-8') as js:
+        with open(self.before_ipdb_db_filepath, 'w', encoding='utf-8') as js:
             json.dump(self.ipbp_db, js, ensure_ascii=False, indent=4)
 
     def read_today_before(self):
-        with open('today_before_di_db.json', encoding='utf-8') as js:
+        with open(self.before_di_db_filepath, encoding='utf-8') as js:
             self.before_di_db = json.load(js)
 
-        with open('today_before_ipbp_db.json', encoding='utf-8') as js:
+        with open(self.before_ipdb_db_filepath, encoding='utf-8') as js:
             self.before_ipbp_db = json.load(js)
 
 
@@ -161,4 +169,4 @@ if __name__ == '__main__':
     ip = InfectedPerson()
     hit = ip.searcher('都道府県')
     # ip.write_today_before()
-    print(hit)
+    # print(hit)
