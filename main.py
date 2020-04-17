@@ -22,6 +22,9 @@ YOUR_CHANNEL_SECRET = os.environ['YOUR_CHANNEL_SECRET']
 line_bot_api = linebot.LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = linebot.WebhookHandler(YOUR_CHANNEL_SECRET)
 
+text = """\
+キーワードにマッチする情報が見つけれらませんでした。<(_ _)>"""
+
 
 @app.route('/corona', methods=['POST'])
 def receptionist():
@@ -42,9 +45,16 @@ def receptionist():
 
 @handler.add(models.MessageEvent, message=models.TextMessage)
 def handle_message(event):
+
+    # 感染者情報
+    ip = infected_person.InfectedPerson()
+    hit_word = ip.searcher(event.message.text)
+    if not hit_word:
+        hit_word = text
+
     line_bot_api.reply_message(
         event.reply_token,
-        models.TextSendMessage(text='hello'))
+        models.TextSendMessage(text=hit_word))
 
 
 if __name__ == '__main__':
