@@ -8,6 +8,9 @@ import linebot
 from flask import request, abort
 from linebot import exceptions, models
 
+# 自作モジュール
+from collector import infected_person
+
 
 app = flask.Flask(__name__)
 
@@ -21,13 +24,13 @@ handler = linebot.WebhookHandler(YOUR_CHANNEL_SECRET)
 
 
 @app.route('/corona', methods=['POST'])
-def corona():
+def receptionist():
 
     signature = request.headers['X-Line-Signature']
 
     body = request.get_data(as_text=True)
 
-    app.logger.info("Request body: " + body)
+    app.logger.info("Request body: " + 'こんにちは')
 
     try:
         handler.handle(body, signature)
