@@ -1,5 +1,4 @@
 # 組み込みモジュール
-from datetime import datetime
 import time
 
 # サードパーティ
@@ -11,7 +10,7 @@ from collector import infected_person
 
 def main():
     # 本日の最終感染者数記録
-    ip = infected_person.InfectedPerson()
+    ip = infected_person.NipponComSite()
     ip.write_today_before()
 
 

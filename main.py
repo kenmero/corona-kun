@@ -11,7 +11,6 @@ from linebot import exceptions, models
 # 自作モジュール
 from collector import infected_person
 
-
 app = flask.Flask(__name__)
 
 
@@ -46,8 +45,8 @@ def receptionist():
 @handler.add(models.MessageEvent, message=models.TextMessage)
 def handle_message(event):
 
-    # 感染者情報
-    ip = infected_person.InfectedPerson()
+    # nippon.comのwebサイトから日本国内の感染者情報を取得
+    ip = infected_person.NipponComSite()
     hit_word = ip.searcher(event.message.text)
     if not hit_word:
         hit_word = text

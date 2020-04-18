@@ -1,4 +1,4 @@
-"""日本国内の完成者数を取得する"""
+"""感染者数を取得する"""
 # 組み込みモジュール
 import os
 import re
@@ -9,7 +9,7 @@ import json
 import requests
 
 
-class InfectedPerson(object):
+class NipponComSite(object):
     """日本国内の感染者数を収集する機能を実装
     下記ホームページから都道府県別に収集を行う
     https://www.nippon.com/ja/japan-data/h00663/
@@ -151,6 +151,7 @@ class InfectedPerson(object):
             self.di_db.update(db)
 
     def write_today_before(self):
+        self.load()
         with open(self.before_di_db_filepath, 'w', encoding='utf-8') as js:
             json.dump(self.di_db, js, ensure_ascii=False, indent=4)
 
@@ -166,7 +167,7 @@ class InfectedPerson(object):
 
 
 if __name__ == '__main__':
-    ip = InfectedPerson()
-    hit = ip.searcher('都道府県')
-    # ip.write_today_before()
+    ip = NipponComSite()
+    # hit = ip.searcher('国内')
+    ip.write_today_before()
     # print(hit)
