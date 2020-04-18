@@ -1,5 +1,7 @@
 """感染者数を取得する"""
 # 組み込みモジュール
+from datetime import datetime
+import locale
 import os
 import re
 
@@ -7,6 +9,9 @@ import re
 import bs4
 import json
 import requests
+
+locale.setlocale(locale.LC_CTYPE, "English_United States.932")
+DATE_TIME = datetime.now().strftime('%Y年%m月%d日')
 
 
 class NipponComSite(object):
@@ -86,7 +91,7 @@ class NipponComSite(object):
 
                 diff_number1 = number1 - self.before_ipbp_db[prefecture][title1]
                 diff_number2 = number2 - self.before_ipbp_db[prefecture][title2]
-                hit_datas.append(f'{prefecture}\n    '
+                hit_datas.append(f'{prefecture} ({DATE_TIME}時点)\n    '
                                  f'{title2}: {number2}人 (前日差分: {diff_number2})\n    '
                                  f'{title1}: {number1}人 (前日差分: {diff_number1})')
         return '\n'.join(hit_datas)
@@ -104,6 +109,8 @@ class NipponComSite(object):
                 is_hit = True if m else False
 
             if is_hit:
+                if not hit_datas:
+                    hit_datas.append(f'{DATE_TIME}時点')
                 diff = number - self.before_di_db[title]
                 hit_datas.append(f'{title} {number}人 (前日差分: {diff})')
         return '\n'.join(hit_datas)
@@ -168,6 +175,6 @@ class NipponComSite(object):
 
 if __name__ == '__main__':
     ip = NipponComSite()
-    # hit = ip.searcher('国内')
-    ip.write_today_before()
-    # print(hit)
+    hit = ip.searcher('都道府県')
+    # ip.write_today_before()
+    print(hit)
