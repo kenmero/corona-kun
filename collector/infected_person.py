@@ -1,7 +1,7 @@
 """感染者数を取得する"""
 # 組み込みモジュール
 from datetime import datetime
-import locale
+# import locale
 import os
 import re
 
@@ -10,7 +10,7 @@ import bs4
 import json
 import requests
 
-locale.setlocale(locale.LC_CTYPE, "English_United States.932")
+# locale.setlocale(locale.LC_CTYPE, "English_United States.932")
 DATE_TIME = datetime.now().strftime('%Y年%m月%d日')
 
 
